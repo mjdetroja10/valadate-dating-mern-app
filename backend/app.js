@@ -33,6 +33,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static(__dirname + "/public"));
 
+// app routing configuration
 try {
   const appRouter = require("./Http/routes");
   appRouter(app);
@@ -40,6 +41,7 @@ try {
   console.log(chalk.bgRed("Routing Error: ", error));
 }
 
+// app socket configuration
 try {
   const appSocket = require("./Core/Config").connectSocket;
   appSocket(io);
@@ -62,7 +64,6 @@ if (cluster.isPrimary) {
 
   cluster.on("exit", (worker) => {
     console.log(chalk.bgRed(`Worker process ${worker.process.pid} died. Restarting...`));
-    // cluster.fork();
   });
 } else {
   server.listen(port, () => {

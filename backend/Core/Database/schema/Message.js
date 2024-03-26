@@ -14,6 +14,10 @@ const MessageSchema = new Schema(
       type: String,
       required: true,
     },
+    isEdited: {
+      type: Boolean,
+      default: false,
+    },
     users: [
       { type: Schema.Types.ObjectId, ref: "users" },
       { type: Schema.Types.ObjectId, ref: "users" },

@@ -10,4 +10,12 @@ export class MessageConnector {
     static async getMessages(id) {
         return await fetchWrapper.get(`${BASE_URL}/auth/get-msgs/${id}`, {})
     }
+
+    static async deleteMessage(id) {
+        return await fetchWrapper.deleteData(`${BASE_URL}/auth/delete-message/${id}`, {})
+    }
+
+    static async editMessage(body) {
+        return await fetchWrapper.post(`${BASE_URL}/auth/edit-message`, { body })
+    }
 }

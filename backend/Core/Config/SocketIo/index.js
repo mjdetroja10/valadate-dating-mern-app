@@ -9,6 +9,16 @@ const connectSocket = (io) => {
       let sendUserId = global.onlineUsers.get(data.recieverId);
       if (sendUserId) socket.to(sendUserId).emit("receive-message", data);
     });
+
+    socket.on("delete-msg", (data) => {
+      let sendUserId = global.onlineUsers.get(data.userId);
+      if (sendUserId) socket.to(sendUserId).emit("delete-data", data);
+    });
+
+    socket.on("edit-message", (data) => {
+      let sendUserId = global.onlineUsers.get(data.userId);
+      if (sendUserId) socket.to(sendUserId).emit("edit-data", data);
+    });
   });
 };
 

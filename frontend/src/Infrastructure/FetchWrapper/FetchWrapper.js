@@ -3,12 +3,14 @@ import Cookies from 'js-cookie'
 export const fetchWrapper = {
     get,
     post,
+    deleteData,
     formDataSubmit,
 }
 
 const fetchMethods = {
     GET: 'GET',
     POST: 'POST',
+    DELETE: 'DELETE',
 }
 
 const errorStatus = [422, 500, 400, 401, 403, 404]
@@ -44,6 +46,15 @@ async function post(url, { body, headers }) {
             errors: 'Unknown Error',
         }
     }
+}
+
+async function deleteData(url, { headers }) {
+    const responseData = await fetch(url, {
+        method: fetchMethods.DELETE,
+        headers: getHeaders(headers),
+    })
+
+    return handleResponse(responseData)
 }
 
 async function formDataSubmit(url, { body, headers }) {
