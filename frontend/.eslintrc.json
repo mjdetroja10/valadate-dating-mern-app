@@ -1,0 +1,50 @@
+{
+    "env": {
+        "es6": true,
+        "browser": true,
+        "jest": false,
+        "node": true
+    },
+    "plugins": ["react", "react-hooks", "prettier", "eslint-plugin-import-helpers", "import"],
+    "extends": [
+        "next/core-web-vitals",
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:react/jsx-runtime",
+        "plugin:prettier/recommended",
+        "prettier",
+        "next/babel",
+        "next/core-web-vitals"
+    ],
+    "rules": {
+        "comma-dangle": ["error", "always-multiline"],
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "react/react-in-jsx-scope": 0,
+        "react/display-name": 0,
+        "no-console": [
+            "warn",
+            {
+                "allow": ["warn", "error"]
+            }
+        ],
+        "import/no-duplicates": [
+            "error",
+            {
+                "considerQueryString": true
+            }
+        ],
+        "import-helpers/order-imports": [
+            "warn",
+            {
+                "newlinesBetween": "always",
+                "groups": [["/^\\w/"], ["/^@/"], ["/^\\u0000/"], ["/^/"], ["/^\\./"]],
+                "alphabetize": {
+                    "order": "asc",
+                    "ignoreCase": true
+                }
+            }
+        ],
+        "prettier/prettier": "error"
+    }
+}

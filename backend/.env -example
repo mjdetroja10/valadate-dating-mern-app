@@ -1,0 +1,19 @@
+PORT = 
+DEVELOPMENT = 
+VALADATE_WEB_URL = 
+
+# encryption congfiguration
+JWT_SECRET = 
+SALT_ROUND = 
+
+
+# database congfiguration
+DB_PORT = 
+DB_DATABASE = 
+
+# mail congfiguration
+MAIL_HOST = 
+MAIL_PORT = 
+MAIL_USER = 
+MAIL_EMAIL = 
+MAIL_PASSWORD = 
