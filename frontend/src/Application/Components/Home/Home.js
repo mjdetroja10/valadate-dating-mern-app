@@ -16,17 +16,11 @@ import { BoxStyled, HomePageMainWrap, HomeTitle, MatchMakerLinks, QuoteWrapper }
 const MatchMakerDetails = [
     {
         title: 'Find A Match',
-        width: 70,
-        height: 48,
-        icon: TwoHeartsIcon,
-        variant: 'body1',
+        icon: <TwoHeartsIcon height={48} width={70} />,
     },
     {
         title: 'Be A Matchmaker',
-        width: 48,
-        height: 48,
-        icon: HeartMagnifier,
-        variant: 'body1',
+        icon: <HeartMagnifier height={48} width={48} />,
     },
 ]
 
@@ -60,15 +54,12 @@ export const Home = () => {
                                     Get Started!
                                 </Typography>
                                 <Stack spacing={0} component={Link} href={SIGNUP_URL}>
-                                    {MatchMakerDetails.map((element) => {
-                                        const Icon = element.icon
-                                        return (
-                                            <MatchMakerLinks key={element.title}>
-                                                <Icon width={element.width} height={element.height} />
-                                                <Typography variant={element.variant}>{element.title}</Typography>
-                                            </MatchMakerLinks>
-                                        )
-                                    })}
+                                    {MatchMakerDetails.map((element) => (
+                                        <MatchMakerLinks key={element.title}>
+                                            {element.icon}
+                                            <Typography variant="body1">{element.title}</Typography>
+                                        </MatchMakerLinks>
+                                    ))}
                                 </Stack>
                             </HomeTitle>
                         </Grid>

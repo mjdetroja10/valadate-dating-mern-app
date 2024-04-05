@@ -24,28 +24,18 @@ function getHeaders(headers = {}) {
 }
 
 async function get(url, { headers }) {
-    const responseData = await fetch(url, {
+    return await fetch(url, {
         method: fetchMethods.GET,
         headers: getHeaders(headers),
-    })
-
-    return handleResponse(responseData)
+    }).then(handleResponse)
 }
 
 async function post(url, { body, headers }) {
-    try {
-        const responseData = await fetch(url, {
-            method: fetchMethods.POST,
-            headers: getHeaders(headers),
-            body: JSON.stringify(body),
-        })
-
-        return handleResponse(responseData)
-    } catch (error) {
-        return {
-            errors: 'Unknown Error',
-        }
-    }
+    return await fetch(url, {
+        method: fetchMethods.POST,
+        headers: getHeaders(headers),
+        body: JSON.stringify(body),
+    }).then(handleResponse)
 }
 
 async function deleteData(url, { headers }) {
@@ -58,19 +48,13 @@ async function deleteData(url, { headers }) {
 }
 
 async function formDataSubmit(url, { body, headers }) {
-    try {
-        const responseData = await fetch(url, {
-            method: fetchMethods.POST,
-            headers: { authorization: Cookies.get('token') ? `Bearer ${Cookies.get('token')}` : '', ...headers },
-            body: body,
-        })
+    const responseData = await fetch(url, {
+        method: fetchMethods.POST,
+        headers: { authorization: Cookies.get('token') ? `Bearer ${Cookies.get('token')}` : '', ...headers },
+        body: body,
+    })
 
-        return handleResponse(responseData)
-    } catch (error) {
-        return {
-            errors: 'Unknown Error',
-        }
-    }
+    return handleResponse(responseData)
 }
 
 async function handleResponse(response) {

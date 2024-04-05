@@ -49,7 +49,6 @@ const SignupRequest = async (req, res, next) => {
         .notEmpty()
         .bail()
         .custom((value) => {
-          console.log(genderOptions.includes(value), "va;ue");
           if (!genderOptions.includes(value)) return Promise.reject("invalid value");
           return true;
         }),
@@ -116,7 +115,6 @@ const SignupRequest = async (req, res, next) => {
 
     return validationChecker(validations, req, res, next);
   } catch (error) {
-    console.log(error, "errrorrrrrrrrrrrr");
     res.handler.serverError(error);
   }
 };

@@ -5,7 +5,6 @@ import { Provider } from 'react-redux'
 
 import { ThemeProvider } from '@emotion/react'
 import { store } from '@store/Store'
-
 import theme from './Themes'
 
 export const AppProvider = ({ children }) => {

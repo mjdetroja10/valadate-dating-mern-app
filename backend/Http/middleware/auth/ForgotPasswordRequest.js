@@ -12,7 +12,6 @@ const ForgotPasswordRequest = (req, res, nxt) => {
         .withMessage("must be in email format")
         .bail()
         .custom(async (value) => {
-          console.log("value", value);
           let existUser = await UserModel.getByEmail(value);
           if (existUser) {
             req.existUser = existUser;

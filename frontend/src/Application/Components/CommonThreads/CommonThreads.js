@@ -12,8 +12,6 @@ import PlaceHolderImageFemale from '@public/assets/images/slider.png'
 import 'swiper/css'
 import 'swiper/css/navigation'
 
-import { CommonThreadsMainWrap as Wrapper } from './CommonThreads.style'
-
 const slides = [
     {
         id: 1,
@@ -79,39 +77,37 @@ const slides = [
 
 export const CommonThreads = () => {
     return (
-        <AppLayout appMenu={USER_APP_MENU}>
-            <Wrapper>
-                <Container maxWidth={false} disableGutters>
-                    <Grid container spacing={2}>
-                        <Grid item lg={12}>
-                            <Typography variant="h4">Your Friends</Typography>
+        <AppLayout appMenu={USER_APP_MENU()} sidebarShow={true} hasLessSpace={true}>
+            <Container maxWidth={false} disableGutters>
+                <Grid container spacing={2}>
+                    <Grid item lg={12}>
+                        <Typography variant="h4">Your Friends</Typography>
 
-                            <Swiper
-                                modules={[Navigation, A11y]}
-                                navigation
-                                pagination={{ clickable: true }}
-                                scrollbar={{ draggable: true }}
-                                spaceBetween={20}
-                                slidesPerView={8}
-                                centeredSlides={true}
-                                loop={true}
-                            >
-                                {slides.map((slide) => (
-                                    <SwiperSlide key={slide.id}>
-                                        <Box>
-                                            <Image src={slide.imgsrc} alt="Profile Details Image" />
-                                            <Box className="cardContent">
-                                                <Typography variant="body2">{slide.name}</Typography>
-                                                <Typography variant="body3">{slide.threads}</Typography>
-                                            </Box>
+                        <Swiper
+                            modules={[Navigation, A11y]}
+                            navigation
+                            pagination={{ clickable: true }}
+                            scrollbar={{ draggable: true }}
+                            spaceBetween={20}
+                            slidesPerView={8}
+                            centeredSlides={true}
+                            loop={true}
+                        >
+                            {slides.map((slide) => (
+                                <SwiperSlide key={slide.id}>
+                                    <Box>
+                                        <Image src={slide.imgsrc} alt="Profile Details Image" />
+                                        <Box className="cardContent">
+                                            <Typography variant="body2">{slide.name}</Typography>
+                                            <Typography variant="body3">{slide.threads}</Typography>
                                         </Box>
-                                    </SwiperSlide>
-                                ))}
-                            </Swiper>
-                        </Grid>
+                                    </Box>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
                     </Grid>
-                </Container>
-            </Wrapper>
+                </Grid>
+            </Container>
         </AppLayout>
     )
 }

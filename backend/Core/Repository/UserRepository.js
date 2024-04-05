@@ -59,8 +59,8 @@ class UserRepository {
     return await UserModel.getAllDiscover(user, pagination);
   }
 
-  static getSingleUser(userId, reqUserid) {
-    return UserModel.getSingleUser(userId, reqUserid);
+  static getSingleUser(reqUserid) {
+    return UserModel.getSingleUser(reqUserid);
   }
 
   static async getUserByEmail(userEmail) {

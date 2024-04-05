@@ -1,5 +1,5 @@
 import { InterestConnector } from '@infrastructure/Connectors/InterestConnectors'
-import { CreateSuccessServiceResponse } from '@store/StoreUtility'
+import { CreateSuccessServiceResponse, CreateUnknownErrorServiceResponse } from '@store/StoreUtility'
 
 export const InterestRequest = async (params) => {
     try {
@@ -8,9 +8,7 @@ export const InterestRequest = async (params) => {
         if (data) {
             return CreateSuccessServiceResponse(data)
         }
-
-        console.log(data, errors)
     } catch (error) {
-        console.log(error)
+        return CreateUnknownErrorServiceResponse()
     }
 }

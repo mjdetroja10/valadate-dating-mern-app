@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useMemo, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 
-import { LOGIN_URL } from '@application/Constants/RoutesConstants'
+import { HOME_URL, LOGIN_URL } from '@application/Constants/RoutesConstants'
 import { formDefaultValues, formErrorKeys, USER_INTERESTS, USER_PARTY } from '@application/Constants/SignUpConstants'
 import { useFormSubmit } from '@application/Hooks/UseFormSubmit'
 import { HeaderComponent } from '@application/Layouts/HeaderComponent/HeaderComponent'
@@ -39,8 +39,9 @@ const onSuccess = (router) => () => {
     router.push(LOGIN_URL)
 }
 
-const prevStep = (steps, setSteps) => () => {
-    if (steps !== 1) setSteps(steps - 1)
+const prevStep = (steps, setSteps, router) => () => {
+    if (steps === 1) router.push(HOME_URL)
+    else setSteps(steps - 1)
 }
 
 const nextStep = (steps, setSteps, errors) => () => {
@@ -48,7 +49,17 @@ const nextStep = (steps, setSteps, errors) => () => {
     if (steps !== 7) setSteps(steps + 1)
 }
 
-const stepperComponents = (steps, progress, { interestCategoryOptions, partyHabitsOptions }) => {
+const onSubmit = (steps, setSteps, errors, formSubmit) => async (data) => {
+    nextStep(steps, setSteps, formState.errors)()
+
+    if (steps === 7) {
+        await formSubmit(data)
+    }
+}
+
+const stepperComponents = (steps, { interestCategoryOptions, partyHabitsOptions }) => {
+    const progress = Math.floor((steps / 7) * 100)
+
     switch (steps) {
         case 1:
             return <DaterForm progress={progress} />
@@ -82,11 +93,10 @@ export const SignUp = () => {
     })
     const [steps, setSteps] = useState(1)
 
+    // in future --  api purpose
     const [categoryList] = useState({
         data: { interests: USER_INTERESTS, habits: USER_PARTY },
     })
-
-    const progress = Math.floor((steps / 7) * 100)
 
     const interestCategoryOptions = useMemo(
         () =>
@@ -110,7 +120,11 @@ export const SignUp = () => {
 
     const router = useRouter()
 
-    const { handleSubmit, formState, setError } = methods
+    const {
+        handleSubmit,
+        formState: { errors },
+        setError,
+    } = methods
 
     const [formSubmit, formLoading] = useFormSubmit({
         requestMethod: SignupRequest,
@@ -118,20 +132,12 @@ export const SignUp = () => {
         onSuccess: onSuccess(router),
     })
 
-    const onSubmit = async (data) => {
-        nextStep(steps, setSteps, formState.errors)()
-
-        if (steps === 7) {
-            await formSubmit(data)
-        }
-    }
-
     return (
         <FormProvider {...methods}>
-            <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+            <Box component="form" onSubmit={handleSubmit(onSubmit(steps, setSteps, errors, formSubmit))}>
                 <HeaderComponent>
                     <Box>
-                        <ButtonPrimary sx={{ mr: 2 }} onClick={prevStep(steps, setSteps)} type="button">
+                        <ButtonPrimary sx={{ mr: 2 }} onClick={prevStep(steps, setSteps, router)} type="button">
                             Go Back
                         </ButtonPrimary>
                         <ButtonPrimary type="submit" disabled={formLoading}>
@@ -139,7 +145,7 @@ export const SignUp = () => {
                         </ButtonPrimary>
                     </Box>
                 </HeaderComponent>
-                {stepperComponents(steps, progress, { interestCategoryOptions, partyHabitsOptions })}
+                {stepperComponents(steps, { interestCategoryOptions, partyHabitsOptions })}
             </Box>
         </FormProvider>
     )

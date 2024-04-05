@@ -1,4 +1,5 @@
 import { AuthConnector } from '@infrastructure/Connectors/AuthConnectors'
+import { CreateUnknownErrorServiceResponse } from '@store/StoreUtility'
 
 export const EmailVerifyRequest = async (params, setAlert) => {
     try {
@@ -14,6 +15,6 @@ export const EmailVerifyRequest = async (params, setAlert) => {
 
         if (errors) setAlert((prev) => ({ ...prev, type: 'error', message: errorMsg }))
     } catch (error) {
-        console.error('EmailVerifyRequest_Error: ', error)
+        return CreateUnknownErrorServiceResponse()
     }
 }

@@ -1,20 +1,17 @@
-import Cookies from 'js-cookie'
-
-import { NotificationIcon } from '@application/Molecules/icons/NotificationIcon'
-import { tokenDecoded } from '@application/Utils/TokenDecodeUtility'
-
-import { CONTACT_URL, LOGIN_URL, MISSION_URL, WHY_VALADATE } from './RoutesConstants'
+import { CONTACT_URL, DISCOVER_URL, LOGIN_URL, MISSION_URL, MY_PROFILE_URL, WHY_VALADATE } from './RoutesConstants'
+// import { store } from '@store/Store'
+import { Notification } from '@application/Layouts/HeaderComponent/Notifcation/Notification'
+import { HomeIcon } from '@application/Molecules/icons/HomeIcom'
+import { store } from '@store/Store'
 
 export const APP_MENU_TYPES = {
     BUTTON: 'BUTTON',
     LINK: 'LINK',
     SUBMITBTN: 'SUBMIT',
     ICON: 'ICON',
-    PICTURE: 'PICTURE',
-}
-
-const removeCookies = () => {
-    Cookies.remove('token', { path: '' })
+    COMPONENT: 'COMPONENT',
+    PICTURE: 'PICTURE_BTN',
+    ICON_BTN: 'ICON_BTN',
 }
 
 export const APP_MENU = [
@@ -53,33 +50,50 @@ export const APP_MENU = [
     },
 ]
 
-const userDetails = tokenDecoded()
+const getUserProfile = () => {
+    let user = store.getState()?.userDetails?.user
 
-export const USER_APP_MENU = [
-    {
-        group: [
-            {
-                title: 'Notification',
-                path: '',
-                permission: [],
-                type: APP_MENU_TYPES.ICON,
-                icon: <NotificationIcon height={34} width={34} />,
-            },
-            {
-                title: 'User',
-                path: '',
-                permission: [],
-                type: APP_MENU_TYPES.PICTURE,
-                src: userDetails?.images && userDetails?.images.length > 0 && userDetails?.images[0]?.src,
-            },
+    if (!user && !user?.images && user?.images.length === 0) return null
+    return user?.images[0]?.src
+}
 
-            {
-                title: 'Logout',
-                path: '',
-                permission: [],
-                type: APP_MENU_TYPES.BUTTON,
-                action: removeCookies,
-            },
-        ],
-    },
-]
+export const USER_APP_MENU = (hasProfileMenu = false) => {
+    const profilePic = getUserProfile()
+    let adddedItem = hasProfileMenu
+        ? {
+              title: 'Home',
+              path: DISCOVER_URL,
+              permission: [],
+              type: APP_MENU_TYPES.ICON_BTN,
+              content: <HomeIcon height={38} width={38} />,
+          }
+        : {
+              title: 'User',
+              path: MY_PROFILE_URL,
+              permission: [],
+              type: APP_MENU_TYPES.ICON_BTN,
+              content: profilePic ? (
+                  <img
+                      src={getUserProfile()}
+                      style={{ height: 38, width: 38, borderRadius: '50%', objectFit: 'cover' }}
+                      alt="User Image"
+                  />
+              ) : (
+                  ''
+              ),
+          }
+
+    return [
+        {
+            group: [
+                {
+                    title: 'Notification',
+                    path: '',
+                    permission: [],
+                    type: APP_MENU_TYPES.COMPONENT,
+                    component: <Notification />,
+                },
+            ].concat([adddedItem]),
+        },
+    ]
+}

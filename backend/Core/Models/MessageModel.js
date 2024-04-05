@@ -12,7 +12,7 @@ class MessageModel {
   }
 
   static async getAllMessagaes(user, id) {
-    let msgs = await MessageSchema.find({ users: { $all: [user._id, id] } });
+    let msgs = await MessageSchema.find({ users: { $all: [user._id, id] } }).sort([["createdAt", 1]]);
 
     return msgs;
   }

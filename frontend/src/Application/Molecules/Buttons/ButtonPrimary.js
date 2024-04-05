@@ -2,9 +2,9 @@ import PropTypes from 'prop-types'
 
 import { ButtonPrimaryStyled } from './Button.Style'
 
-export const ButtonPrimary = ({ children, ...rest }) => {
+export const ButtonPrimary = ({ variant = 'outlined', children, ...rest }) => {
     return (
-        <ButtonPrimaryStyled {...rest} variant="outlined">
+        <ButtonPrimaryStyled {...rest} variant={variant}>
             {children}
         </ButtonPrimaryStyled>
     )
@@ -12,4 +12,5 @@ export const ButtonPrimary = ({ children, ...rest }) => {
 
 ButtonPrimary.propTypes = {
     children: PropTypes.node,
+    variant: PropTypes.string,
 }

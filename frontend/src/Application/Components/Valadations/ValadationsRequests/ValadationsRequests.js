@@ -4,14 +4,14 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { STATUS } from '@application/Constants/DiscoverConstants'
 import { useFormSubmit } from '@application/Hooks/UseFormSubmit'
 import { ExpandMoreIcon } from '@application/Molecules/icons/ExpandMoreIcon'
-import { tokenDecoded } from '@application/Utils/TokenDecodeUtility'
+import { userDetails } from '@application/Utils/TokenDecodeUtility'
 import { Button, Divider, Grid, Typography } from '@mui/material'
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import { FriendRequest } from '@store/Requests/FriendRequest'
 
-const loggedInUserDetails = tokenDecoded()
+const loggedInUserDetails = userDetails()
 
 const interestSendDetails = (recieverId, senderId, status) => {
     return {
@@ -43,7 +43,7 @@ export const ValadationsRequests = ({ pendingRequestList, setPendingRequestList,
                 Valadation Requests
             </Typography>
             <Divider sx={{ my: 3 }} />
-            {pendingRequestList &&
+            {pendingRequestList && pendingRequestList.length > 0 ? (
                 pendingRequestList.map((requestList) => (
                     <Accordion key={requestList?._id}>
                         <AccordionSummary
@@ -82,7 +82,10 @@ export const ValadationsRequests = ({ pendingRequestList, setPendingRequestList,
                             </FormProvider>
                         </AccordionDetails>
                     </Accordion>
-                ))}
+                ))
+            ) : (
+                <Typography align="center">No request avaliable</Typography>
+            )}
         </Grid>
     )
 }

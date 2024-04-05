@@ -1,4 +1,4 @@
-const { FriendSchema } = require("../Database/schema");
+const { FriendSchema, MessageSchema } = require("../Database/schema");
 
 class FriendModel {
   static async getOneFrd(userId, frdId) {
@@ -15,13 +15,22 @@ class FriendModel {
       ],
     });
 
-    console.log(user, "isAlreadyFrdisAlreadyFrd");
-
     return user;
   }
 
   static async myFriends(id) {
-    return await FriendSchema.find({ userId: id });
+    let friends = await FriendSchema.find({ userId: id });
+
+    const data = await Promise.all(
+      friends.map(async (x) => {
+        let message = await MessageSchema.findOne({ senderId: x.frd._id, recieverId: id }).sort({ createdAt: -1 });
+        // let message = await MessageSchema.findOne({ users: { $all: [x.frd._id, id] } }).sort({ createdAt: -1 });
+
+        return { _id: x._id, frd: { ...x.frd, message: message } };
+      })
+    );
+
+    return data;
   }
 }
 

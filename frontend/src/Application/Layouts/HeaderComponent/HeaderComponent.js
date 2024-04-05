@@ -9,7 +9,8 @@ import { LogoIcon } from '@application/Molecules/icons/LogoIcon'
 import theme from '@application/Themes'
 import { AppBar, Box, Toolbar, Typography, IconButton, Link, useMediaQuery } from '@mui/material'
 
-import { HeaderMainWrap as Header, NavbarLinkStyled as NavLink } from './Header.style'
+import { HeaderMainWrap as Header, NavbarLinkStyled as NavLink, NavLinkWrapper } from './Header.style'
+import { Notification } from '@application/Layouts/HeaderComponent/Notifcation/Notification'
 
 const modifiedHeader = (item) => {
     switch (item.type) {
@@ -20,25 +21,25 @@ const modifiedHeader = (item) => {
                 </ButtonPrimary>
             )
 
-        case APP_MENU_TYPES.ICON:
-            return item.icon
+        case APP_MENU_TYPES.COMPONENT:
+            return item.component
 
-        case APP_MENU_TYPES.PICTURE:
-            return (
-                // eslint-disable-next-line
-                <img
-                    src="https://images.pexels.com/photos/18254632/pexels-photo-18254632/free-photo-of-portrait-of-brunette-woman-in-black-and-white.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                    style={{ height: 40, width: 40, borderRadius: '50%', objectFit: 'cover' }}
-                    alt="User Image"
-                />
-            )
+        case APP_MENU_TYPES.ICON_BTN:
+            return <IconButton>{item.content}</IconButton>
 
         default:
             return item.title
     }
 }
 
-export const HeaderComponent = ({ appMenu = [], setSidebarShow, sidebarShow, hasMorePadding = false, children }) => {
+export const HeaderComponent = ({
+    appMenu = [],
+    setSidebarShow,
+    sidebarShow,
+    hasMorePadding = false,
+    hasLessSpace = false,
+    children,
+}) => {
     const isMobileSize = useMediaQuery(theme.breakpoints.down('sm'))
 
     return (
@@ -58,34 +59,31 @@ export const HeaderComponent = ({ appMenu = [], setSidebarShow, sidebarShow, has
                             appMenu.map((element, index) => {
                                 if (element.group.length > 0) {
                                     return (
-                                        <Box
-                                            key={index}
-                                            sx={{
-                                                display: { xs: 'none', sm: 'none', md: 'flex', alignItems: 'center' },
-                                            }}
-                                        >
+                                        <NavLinkWrapper key={index}>
                                             {element.group.map((item) => (
                                                 <NavLink
                                                     key={item.title}
-                                                    component={Link}
+                                                    component={item.path ? Link : ''}
                                                     variant="h5"
                                                     underline="none"
                                                     href={item.path ? item.path : ''}
                                                     sx={{
+                                                        width:
+                                                            item.type === APP_MENU_TYPES.ICON_BTN
+                                                                ? '100% !important'
+                                                                : 'auto',
                                                         padding: hasMorePadding
                                                             ? {
                                                                   sm: theme.spacing(0, 2),
                                                                   lg: theme.spacing(0, 7),
                                                               }
-                                                            : theme.spacing(0, 2),
-                                                        display: { xs: 'block' },
-                                                        width: '100%',
+                                                            : theme.spacing(0, hasLessSpace ? 0.5 : 2),
                                                     }}
                                                 >
                                                     {modifiedHeader(item)}
                                                 </NavLink>
                                             ))}
-                                        </Box>
+                                        </NavLinkWrapper>
                                     )
                                 }
                                 return null

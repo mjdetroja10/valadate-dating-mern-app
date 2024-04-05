@@ -4,6 +4,7 @@ import {
     CreateErrorFiledWise,
     CreateErrorServiceResponse,
     CreateSuccessServiceResponse,
+    CreateUnknownErrorServiceResponse,
     CreateValidationErrorServiceResponse,
 } from '@store/StoreUtility'
 
@@ -27,6 +28,6 @@ export const ResetPassWordRequest = (id) => async (params) => {
 
         return CreateErrorServiceResponse(errors)
     } catch (error) {
-        console.error(error)
+        return CreateUnknownErrorServiceResponse()
     }
 }

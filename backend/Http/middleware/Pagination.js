@@ -15,7 +15,6 @@ const Pagination = (req, res, nxt) => {
 
     nxt();
   } catch (e) {
-    console.log(e, "eeeeeeeeeeeeeeeeeeee");
     res.handler.serverError(e);
   }
 };

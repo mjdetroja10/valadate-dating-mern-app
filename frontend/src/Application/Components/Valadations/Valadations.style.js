@@ -2,29 +2,6 @@ import theme from '@application/Themes'
 import styled from '@emotion/styled'
 import { List } from '@mui/material'
 
-export const ValadationsMainWrap = styled('div')({
-    marginLeft: 290,
-    marginTop: 100,
-
-    '& .MuiAccordionSummary-content': {
-        fontSize: '20px',
-        alignItems: 'center',
-        textTransform: 'capitalize',
-
-        '& .MuiAvatar-root': {
-            marginRight: '15px',
-        },
-    },
-
-    '& .smallRoundImage': {
-        marginRight: '15px',
-    },
-
-    '& .MuiTypography-body1': {
-        fontSize: '20px',
-    },
-})
-
 export const ChatWrapper = styled('div')(({ theme }) => ({
     border: '1px solid #B5D4F6',
     borderRadius: 12,

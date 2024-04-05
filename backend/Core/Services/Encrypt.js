@@ -5,7 +5,6 @@ const jwtSecretKey = process.env.JWT_SECRET;
 
 class Encrypt {
   static async createEnryption(password) {
-    console.log(saltRound, "saltRound");
     return await bcrypt.hashSync(password, bcrypt.genSaltSync(parseInt(saltRound)));
   }
 
@@ -14,9 +13,7 @@ class Encrypt {
   }
 
   static async generateJwt(data) {
-    let token = await jwt.sign(data, jwtSecretKey, { expiresIn: "24h" });
-
-    return token;
+    return await jwt.sign(data, jwtSecretKey, { expiresIn: "24h" });
   }
 
   static async verifyJwt(token) {

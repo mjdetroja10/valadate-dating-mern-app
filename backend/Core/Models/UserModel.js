@@ -100,8 +100,8 @@ class UserModel {
     return users;
   }
 
-  static async getSingleUser(accessingUserId, reqId) {
-    let condition = { $and: [{ _id: { $ne: accessingUserId } }, { _id: { $eq: reqId } }] };
+  static async getSingleUser(reqId) {
+    let condition = { $and: [{ _id: { $eq: reqId } }] };
 
     return await UserSchema.findOne({ ...condition }, { password: 0 });
   }

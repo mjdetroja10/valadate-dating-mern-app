@@ -23,7 +23,6 @@ export const LoginRequest = async (params) => {
 
         return CreateErrorServiceResponse(errors)
     } catch (errors) {
-        console.error(errors)
-        CreateUnknownErrorServiceResponse()
+        return CreateUnknownErrorServiceResponse()
     }
 }

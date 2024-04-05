@@ -1,4 +1,4 @@
-import { Chat } from '@application/Components/Valadations/Chat/Chat'
+import { Chat } from '@application/Components/Chat/Chat'
 
 const ChatPage = () => <Chat />
 

@@ -14,7 +14,6 @@ class UserController {
       }
       res.handler.notFound();
     } catch (error) {
-      console.log(error, "errror");
       res.handler.serverError(error);
     }
   }
@@ -23,7 +22,7 @@ class UserController {
     try {
       if (req?.accessingUser) {
         let users = await UserRepository.getAllUsers(req?.accessingUser, req.query.pagination);
-        return res.handler.success({ data: users });
+        return res.handler.success(users);
       }
       return res.handler.serverError(null, "something went wrong");
     } catch (error) {
@@ -34,7 +33,7 @@ class UserController {
   static async singleUser(req, res) {
     try {
       if (req?.accessingUser && req.params?.id) {
-        let user = await UserRepository.getSingleUser(req?.accessingUser.id, req.params?.id);
+        let user = await UserRepository.getSingleUser(req.params?.id);
         return res.handler.success(user);
       }
       return res.handler.serverError(null, "something went wrong");

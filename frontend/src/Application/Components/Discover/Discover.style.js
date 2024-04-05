@@ -103,11 +103,26 @@ export const YellowBackgroundWrapper = styled('div')({
     padding: '20px 40px',
 })
 
-export const ProfileDetailsWrapper = styled('div')({
+export const ProfileDetailsWrapper = styled(Box)({
     boxShadow: '0px 0px 8px rgba(0, 0, 0, 0.25)',
     backgroundColor: '#FBFDFF',
     borderRadius: '12px',
     padding: 20,
+    height: 'calc(100vh - 70px)',
+    overflow: 'auto',
+    position: 'fixed',
+
+    '&::-webkit-scrollbar': {
+        width: '3px',
+    },
+
+    '&::-webkit-scrollbar-track': {
+        background: '#ffffff',
+    },
+
+    '&::-webkit-scrollbar-thumb': {
+        background: '#145CA8',
+    },
 
     '& img': {
         border: '1px solid #E7E7E7',

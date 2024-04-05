@@ -29,6 +29,10 @@ yarn-error.log*
 .env*.local
 /.env
 
+
+# public images
+/public
+
 # vercel
 .vercel
 

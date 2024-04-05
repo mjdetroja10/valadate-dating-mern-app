@@ -9,7 +9,7 @@ import { ButtonPrimary } from '@application/Molecules/Buttons/ButtonPrimary'
 import { ProfileBreifcaseIcon } from '@application/Molecules/icons/ProfileBreifcaseIcon'
 import { ProfileLocationIcon } from '@application/Molecules/icons/ProfileLocationIcon'
 import { ProfileSearchIcon } from '@application/Molecules/icons/ProfileSearchIcon'
-import { tokenDecoded } from '@application/Utils/TokenDecodeUtility'
+import { userDetails } from '@application/Utils/TokenDecodeUtility'
 import {
     Box,
     Chip,
@@ -29,6 +29,7 @@ import { InterestRequest } from '@store/Requests/InterestRequest'
 import { singleDiscoverUserRequest } from '@store/Requests/SingleDiscoverUserRequest'
 
 import { ProfileActionWrapper, ProfileDetailsWrapper, ProfileTextWrapper, StyledBox } from '../Discover.style'
+import { useFetch } from '@application/Hooks/useFetch'
 
 const profileActions = [
     {
@@ -47,7 +48,7 @@ const profileActions = [
     },
 ]
 
-const loggedInUserDetails = tokenDecoded()
+const loggedInUserDetails = userDetails()
 
 const interestSendDetails = (status, senderId, recieverId) => {
     return {
@@ -66,6 +67,10 @@ const onSuccess = (setSelectedId, selectedId, setInterestPopup, interestPopup, s
     setInterestPopup(!interestPopup)
 }
 
+const getSingleUser = (setUserProfileDetails) => (data) => {
+    if (data) setUserProfileDetails(data)
+}
+
 export const ProfileDetails = (props) => {
     const {
         selectedId,
@@ -78,11 +83,16 @@ export const ProfileDetails = (props) => {
 
     const [userProfileDetails, setUserProfileDetails] = useState(null)
 
+    const { fetchRequest: singleUserRequest } = useFetch({
+        request: singleDiscoverUserRequest(selectedId),
+        onSuccess: getSingleUser(setUserProfileDetails),
+    })
+
     useEffect(() => {
-        singleDiscoverUserRequest(selectedId, setUserProfileDetails)
+        singleUserRequest()
     }, [selectedId])
 
-    const methods = useForm({})
+    const methods = useForm()
 
     const { handleSubmit } = methods
 
@@ -92,7 +102,7 @@ export const ProfileDetails = (props) => {
         onSuccess: onSuccess(setSelectedId, selectedId, setInterestPopup, interestPopup, setDiscoverDetails),
     })
 
-    if (!selectedId) return null
+    if (!selectedId || !userProfileDetails) return null
 
     return (
         <ProfileDetailsWrapper>

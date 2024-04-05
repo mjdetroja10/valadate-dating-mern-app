@@ -22,8 +22,6 @@ class RequestModel {
   static async getRecieverById(id) {
     let sentReqUsers = await FriendRequest.find({ $or: [{ senderId: id }, { recieverId: id }] });
 
-    console.log(sentReqUsers, "ffffffffffffff");
-
     return sentReqUsers;
   }
 
@@ -48,7 +46,6 @@ class RequestModel {
         { senderId: body.recieverId, recieverId: body?.senderId },
         { status: STATUS.accept }
       );
-      console.log(pendingReq, "pendingReq");
 
       let sender = await UserSchema.findById(body.senderId);
       let senderFrd = await new FriendSchema({ userId: body.recieverId, frd: sender });
@@ -57,7 +54,7 @@ class RequestModel {
       let reciever = await UserSchema.findById(body.recieverId);
       let recieverFrd = await new FriendSchema({ userId: body.senderId, frd: reciever });
       await recieverFrd.save();
-      console.log({ senderFrd, recieverFrd });
+
       return body?.recieverId;
     }
 

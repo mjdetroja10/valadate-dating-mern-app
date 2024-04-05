@@ -1,8 +1,13 @@
 export const UNKNOW_ERROR = 'Internal server error'
 
+export const RESPONSE_STATUS = {
+    SUCCESS: 'SUCCESS',
+    ERROR: 'ERROR',
+}
+
 export const CreateSuccessServiceResponse = (data) => {
     return {
-        status: 'SUCCESS',
+        status: RESPONSE_STATUS.SUCCESS,
         message: data?.message,
         data: data?.data,
     }
@@ -10,7 +15,7 @@ export const CreateSuccessServiceResponse = (data) => {
 
 export const CreateValidationErrorServiceResponse = (errors) => {
     return {
-        status: 'ERROR',
+        status: RESPONSE_STATUS.ERROR,
         errors,
     }
 }
@@ -24,21 +29,21 @@ export const CreateErrorFiledWise = (errors) => {
     })
 }
 
-const isErrorResponse = (response) => response?.status == 'ERROR'
+const isErrorResponse = (response) => response?.status == RESPONSE_STATUS.ERROR
 
 export const hasValidationError = (response) =>
     Boolean(response && isErrorResponse(response) && response.errors?.length)
 
 export const CreateErrorServiceResponse = (errorMessage) => {
     return {
-        status: 'ERROR',
+        status: RESPONSE_STATUS.ERROR,
         message: errorMessage,
     }
 }
 
 export const CreateUnknownErrorServiceResponse = () => {
     return {
-        status: 'ERROR',
+        status: RESPONSE_STATUS.ERROR,
         message: UNKNOW_ERROR,
     }
 }

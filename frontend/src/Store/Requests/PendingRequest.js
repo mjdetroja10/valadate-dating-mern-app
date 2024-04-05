@@ -1,15 +1,17 @@
+import { unAuthorized } from '@application/Utils/GeneralUtility'
 import { InterestConnector } from '@infrastructure/Connectors/InterestConnectors'
+import { CreateUnknownErrorServiceResponse } from '@store/StoreUtility'
 
 export const PendingRequest = async (setPendingRequestList) => {
     try {
-        const { data } = await InterestConnector.PendingRequest()
+        const { data, errors, code } = await InterestConnector.PendingRequest()
 
         if (data) {
             setPendingRequestList(data?.data)
         }
 
-        // console.log(data, errors)
+        if (code === 401) unAuthorized(errors)
     } catch (error) {
-        console.error(error)
+        return CreateUnknownErrorServiceResponse()
     }
 }

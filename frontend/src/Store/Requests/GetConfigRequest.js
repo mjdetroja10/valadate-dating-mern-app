@@ -4,6 +4,6 @@ export const GetConfigRequest = async () => {
     try {
         return await PublicConnector.configs()
     } catch (error) {
-        console.log(error)
+        console.error(error)
     }
 }

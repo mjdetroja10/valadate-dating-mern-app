@@ -4,6 +4,7 @@ import {
     CreateErrorFiledWise,
     CreateErrorServiceResponse,
     CreateSuccessServiceResponse,
+    CreateUnknownErrorServiceResponse,
     CreateValidationErrorServiceResponse,
 } from '@store/StoreUtility'
 
@@ -25,6 +26,6 @@ export const SignupRequest = async (formData) => {
 
         return CreateErrorServiceResponse(errors)
     } catch (error) {
-        console.error('SignupRequest error: ', error)
+        return CreateUnknownErrorServiceResponse()
     }
 }

@@ -11,7 +11,6 @@ const ResetPasswordRequest = (req, res, nxt) => {
         .custom(async (value) => {
           let emailData = await EmailVerifyModel.findByCode(value);
           if (emailData && emailData?.reason === "resetPassword") {
-            console.log(emailData, "eeeeeeeeeeeeeeeeee");
             req.emailData = emailData;
             return true;
           }

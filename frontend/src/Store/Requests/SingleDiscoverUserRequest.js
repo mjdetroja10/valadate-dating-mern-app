@@ -1,13 +1,22 @@
+import { unAuthorized } from '@application/Utils/GeneralUtility'
 import { PublicConnector } from '@infrastructure/Connectors/PublicConnector'
+import {
+    CreateSuccessServiceResponse,
+    CreateUnknownErrorServiceResponse,
+    CreateValidationErrorServiceResponse,
+} from '@store/StoreUtility'
 
-export const singleDiscoverUserRequest = async (id, setUserProfileDetails) => {
+export const singleDiscoverUserRequest = (id) => async () => {
     try {
         const { data, errors, code } = await PublicConnector.dicoverSingleUser(id)
 
-        if (data) setUserProfileDetails(data?.data)
+        if (data) {
+            return CreateSuccessServiceResponse(data)
+        }
+        if (code === 401) unAuthorized(errors)
 
-        console.log(data, errors, code, 'data, errors, code')
+        if (errors) CreateValidationErrorServiceResponse(errors)
     } catch (error) {
-        console.log(error)
+        return CreateUnknownErrorServiceResponse()
     }
 }

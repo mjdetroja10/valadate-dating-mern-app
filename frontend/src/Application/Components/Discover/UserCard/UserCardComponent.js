@@ -2,7 +2,7 @@ import Link from 'next/link'
 import PropTypes from 'prop-types'
 
 import { DISCOVER_URL } from '@application/Constants/RoutesConstants'
-import { tokenDecoded } from '@application/Utils/TokenDecodeUtility'
+import { userDetails } from '@application/Utils/TokenDecodeUtility'
 import { Box, CircularProgress, Grid, Typography } from '@mui/material'
 
 import { StyledBox, UserCard, UserCardText } from '../Discover.style'
@@ -17,7 +17,7 @@ const calculateMatchingPercentage = (userInterests, loggedInUserInterests) => {
 }
 
 export const UserCardComponent = ({ discoverDetails = [], selectedId, setSelectedId }) => {
-    const loginUserInterests = tokenDecoded()
+    const loginUserInterests = userDetails()
 
     const loggedInUserInterests = loginUserInterests?.interests
 

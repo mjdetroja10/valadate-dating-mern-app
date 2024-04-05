@@ -1,6 +1,6 @@
-import { useState } from 'react'    
+import { useState } from 'react'
 
-import { hasValidationError } from '@store/StoreUtility'
+import { RESPONSE_STATUS, hasValidationError } from '@store/StoreUtility'
 
 export const useFormSubmit = ({ requestMethod, onSuccess, onError }) => {
     const [formLoading, setLoading] = useState(false)
@@ -12,7 +12,7 @@ export const useFormSubmit = ({ requestMethod, onSuccess, onError }) => {
 
         setLoading(false)
 
-        if (response?.status === 'SUCCESS') {
+        if (response?.status === RESPONSE_STATUS.SUCCESS) {
             onSuccess(response.data)
             return
         }
