@@ -4,8 +4,13 @@ import { AppProvider } from '@application/AppProvider'
 import '/styles/global.css'
 
 export const metadata = {
+    manifest: '/manifest.json',
     title: 'VALADATE',
     description: 'Common Threads Leading To Uncommon Connections',
+}
+
+export const viewport = {
+    themeColor: '#F9DB6D',
 }
 
 export default function RootLayout({ children }) {

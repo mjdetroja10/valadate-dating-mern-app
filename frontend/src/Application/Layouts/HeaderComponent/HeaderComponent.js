@@ -7,10 +7,12 @@ import { ButtonPrimary } from '@application/Molecules/Buttons/ButtonPrimary'
 import { HamBurgerIcon } from '@application/Molecules/icons/HamBurgerIcon'
 import { LogoIcon } from '@application/Molecules/icons/LogoIcon'
 import theme from '@application/Themes'
-import { AppBar, Box, Toolbar, Typography, IconButton, Link, useMediaQuery } from '@mui/material'
+import { AppBar, Toolbar, Typography, IconButton, Link, useMediaQuery } from '@mui/material'
 
 import { HeaderMainWrap as Header, NavbarLinkStyled as NavLink, NavLinkWrapper } from './Header.style'
-import { Notification } from '@application/Layouts/HeaderComponent/Notifcation/Notification'
+import MobileLogo from '@public/assets/images/Valadate_Logo 1.png'
+
+import Image from 'next/image'
 
 const modifiedHeader = (item) => {
     switch (item.type) {
@@ -34,10 +36,10 @@ const modifiedHeader = (item) => {
 
 export const HeaderComponent = ({
     appMenu = [],
-    setSidebarShow,
-    sidebarShow,
     hasMorePadding = false,
     hasLessSpace = false,
+    toggleSidebar,
+    setToggleSidebar,
     children,
 }) => {
     const isMobileSize = useMediaQuery(theme.breakpoints.down('sm'))
@@ -48,10 +50,14 @@ export const HeaderComponent = ({
                 <AppBar elevation={1} color="white" position="fixed" component="nav">
                     <Toolbar sx={{ justifyContent: 'space-between', padding: 2, display: { sm: 'flex' } }}>
                         <Typography component={Link} href="/">
-                            <LogoIcon width={!isMobileSize ? 213 : 170} height={!isMobileSize ? 50 : 32} />
+                            {isMobileSize ? (
+                                <Image src={MobileLogo} width={35} height={42} />
+                            ) : (
+                                <LogoIcon width={!isMobileSize ? 213 : 170} height={!isMobileSize ? 50 : 32} />
+                            )}
                         </Typography>
 
-                        <IconButton onClick={() => setSidebarShow(!sidebarShow)} sx={{ display: { md: 'none' } }}>
+                        <IconButton onClick={() => setToggleSidebar(!toggleSidebar)} sx={{ display: { md: 'none' } }}>
                             <HamBurgerIcon />
                         </IconButton>
 

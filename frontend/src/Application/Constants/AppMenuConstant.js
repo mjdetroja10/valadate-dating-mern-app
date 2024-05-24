@@ -1,5 +1,4 @@
 import { CONTACT_URL, DISCOVER_URL, LOGIN_URL, MISSION_URL, MY_PROFILE_URL, WHY_VALADATE } from './RoutesConstants'
-// import { store } from '@store/Store'
 import { Notification } from '@application/Layouts/HeaderComponent/Notifcation/Notification'
 import { HomeIcon } from '@application/Molecules/icons/HomeIcom'
 import { store } from '@store/Store'

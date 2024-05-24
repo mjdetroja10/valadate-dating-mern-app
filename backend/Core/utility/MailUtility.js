@@ -5,7 +5,7 @@ let valdateUrl = process.env.VALADATE_WEB_URL;
 const mailSentData = {
   emailVerify: (user, uniqueCode) => ({
     to: user.email,
-    subject: "Valadate - verify password",
+    subject: "Valadate - verify email",
     html: {
       name: `${user?.firstName} ${user?.lastName}`,
       url: `${valdateUrl}/email-verify/${uniqueCode}`,

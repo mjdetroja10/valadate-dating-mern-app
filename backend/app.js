@@ -13,7 +13,10 @@ const app = express();
 
 const server = require("http").createServer(app);
 const io = new Server(server, {
-  cors: { origin: "http://localhost:8801", methods: ["GET", "POST"] },
+  cors: {
+    origin: ["http://192.168.1.18:8801", "http://localhost:8801", "http://192.168.1.18:6001", "http://localhost:3000/"],
+    methods: ["GET", "POST"],
+  },
 });
 
 const port = process.env.PORT || 3000;

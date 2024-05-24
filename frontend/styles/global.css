@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
 
+* {
+    box-sizing: border-box;
+}
+
 html,
 body {
     padding: 0;
@@ -12,10 +16,6 @@ body {
 a {
     color: inherit;
     text-decoration: none;
-}
-
-* {
-    box-sizing: border-box;
 }
 
 p {
@@ -83,4 +83,12 @@ img {
     left: 0;
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
+}
+
+.mySwiper .swiper-button-next::after {
+    display: none;
+}
+
+.mySwiper .swiper-button-prev::after {
+    display: none;
 }

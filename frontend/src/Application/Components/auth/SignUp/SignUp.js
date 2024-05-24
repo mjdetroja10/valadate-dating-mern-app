@@ -9,7 +9,7 @@ import { formDefaultValues, formErrorKeys, USER_INTERESTS, USER_PARTY } from '@a
 import { useFormSubmit } from '@application/Hooks/UseFormSubmit'
 import { HeaderComponent } from '@application/Layouts/HeaderComponent/HeaderComponent'
 import { ButtonPrimary } from '@application/Molecules/Buttons/ButtonPrimary'
-import { Box } from '@mui/material'
+import { Box, Container } from '@mui/material'
 import { SignupRequest } from '@store/Requests/SignupRequest'
 
 import { AgeRangeCategory } from './AgeRangeCategory/AgeRangeCategory'
@@ -19,6 +19,8 @@ import { LocationForm } from './LocationForm/LocationForm'
 import { LookingForCategory } from './LookingForCategory/LookingForCategory'
 import { UserGenderCategory } from './UserGenderCategory/UserGenderCategory'
 import { UserImages } from './UserImages/UserImages'
+import { SignUpWrapper } from './SignUp.style'
+import { FormProgress } from './FormProgress/FormProgress'
 
 const onError = (setError, setSteps) => (errors) => {
     if (Array.isArray(errors)) {
@@ -50,7 +52,7 @@ const nextStep = (steps, setSteps, errors) => () => {
 }
 
 const onSubmit = (steps, setSteps, errors, formSubmit) => async (data) => {
-    nextStep(steps, setSteps, formState.errors)()
+    nextStep(steps, setSteps, errors)()
 
     if (steps === 7) {
         await formSubmit(data)
@@ -58,29 +60,27 @@ const onSubmit = (steps, setSteps, errors, formSubmit) => async (data) => {
 }
 
 const stepperComponents = (steps, { interestCategoryOptions, partyHabitsOptions }) => {
-    const progress = Math.floor((steps / 7) * 100)
-
     switch (steps) {
         case 1:
-            return <DaterForm progress={progress} />
+            return <DaterForm />
 
         case 2:
-            return <LocationForm progress={progress} />
+            return <LocationForm />
 
         case 3:
-            return <UserGenderCategory progress={progress} />
+            return <UserGenderCategory />
 
         case 4:
-            return <LookingForCategory progress={progress} />
+            return <LookingForCategory />
 
         case 5:
-            return <InterestCategory progress={progress} interestOptions={interestCategoryOptions} />
+            return <InterestCategory interestOptions={interestCategoryOptions} />
 
         case 6:
-            return <AgeRangeCategory progress={progress} habitsOptions={partyHabitsOptions} />
+            return <AgeRangeCategory habitsOptions={partyHabitsOptions} />
 
         case 7:
-            return <UserImages progress={progress} />
+            return <UserImages />
 
         default:
             return null
@@ -131,6 +131,7 @@ export const SignUp = () => {
         onError: onError(setError, setSteps),
         onSuccess: onSuccess(router),
     })
+    const progress = Math.floor((steps / 7) * 100)
 
     return (
         <FormProvider {...methods}>
@@ -145,7 +146,11 @@ export const SignUp = () => {
                         </ButtonPrimary>
                     </Box>
                 </HeaderComponent>
-                {stepperComponents(steps, { interestCategoryOptions, partyHabitsOptions })}
+
+                <SignUpWrapper>
+                    <FormProgress value={progress} />
+                    <Container>{stepperComponents(steps, { interestCategoryOptions, partyHabitsOptions })}</Container>
+                </SignUpWrapper>
             </Box>
         </FormProvider>
     )

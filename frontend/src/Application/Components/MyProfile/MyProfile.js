@@ -19,11 +19,12 @@ import { ProfileBreifcaseIcon } from '@application/Molecules/icons/ProfileBreifc
 
 import { ProfileDetailsWrapper, ProfileTextWrapper, StyledBox } from '../Discover/Discover.style'
 import { singleDiscoverUserRequest } from '@store/Requests/SingleDiscoverUserRequest'
-import { Fragment, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFetch } from '@application/Hooks/useFetch'
 import { ProfileLocationIcon } from '@application/Molecules/icons/ProfileLocationIcon'
 import { ProfileSearchIcon } from '@application/Molecules/icons/ProfileSearchIcon'
 import { CloseIcon } from '@application/Molecules/icons/CloseIcon'
+import { Img, MainImgText } from './MyProfile.styled'
 
 const getSingleUser = (setMyDetatils) => (data) => {
     if (data) setMyDetatils(data)
@@ -48,53 +49,27 @@ export const MyProfile = ({ user }) => {
             {/* <ProfileDetailsWrapper sx={{ width: '100%', position: 'relative' }}> */}
             <Grid container spacing={2} sx={{ mt: 2 }}>
                 <Grid item sm={12}>
-                    <Grid container spacing={2} sx={{ overflowY: 'auto', maxWidth: `calc(100% - 280px)` }}>
-                        <Stack direction="row">
-                            {myDetatils?.images.length > 0 &&
-                                myDetatils?.images.map((image, index) => (
-                                    <Box
-                                        key={image._id}
-                                        m={1.25}
-                                        sx={{ position: 'relative' }}
-                                        className="connection-wrapper"
-                                    >
-                                        <IconButton sx={{ position: 'absolute', top: 0, right: 0, padding: 0.5 }}>
-                                            <CloseIcon width={24} height={24} />
-                                        </IconButton>
-                                        <img
-                                            src={image.src}
-                                            style={{
-                                                width: '200px',
-                                                height: '300px',
-                                                objectFit: 'cover',
-                                                borderRadius: '12px',
-                                            }}
-                                            alt="Profile Details Image"
-                                        />
-                                        {index === 0 && (
-                                            <Typography
-                                                variant="body2"
-                                                sx={{
-                                                    position: 'absolute',
-                                                    bottom: '15px',
-                                                    left: '6px',
-                                                    right: '0',
-                                                    margin: 'auto',
-                                                    color: '#F9DB6D',
-                                                }}
-                                                align="left"
-                                                fontWeight={500}
-                                                fontFamily={'Josefin Sans'}
-                                            >
-                                                Main Image
-                                            </Typography>
-                                        )}
-                                    </Box>
-                                ))}
-                        </Stack>
-                    </Grid>
+                    {/* <Grid container spacing={2} sx={{ overflowY: 'auto', maxWidth: `calc(100% - 280px)` }}> */}
+                    <Stack direction="row">
+                        {myDetatils?.images.length > 0 &&
+                            myDetatils?.images.map((image, index) => (
+                                <Box
+                                    key={image._id}
+                                    m={1.25}
+                                    sx={{ position: 'relative' }}
+                                    className="connection-wrapper"
+                                >
+                                    <IconButton sx={{ position: 'absolute', top: 0, right: 0, padding: 0.5 }}>
+                                        <CloseIcon width={24} height={24} />
+                                    </IconButton>
+                                    <Img src={image.src} alt={image.alt} />
+                                    {index === 0 && <MainImgText variant="body2">Main Image</MainImgText>}
+                                </Box>
+                            ))}
+                    </Stack>
+                    {/* </Grid> */}
                 </Grid>
-                <Grid item lg={12} sm={12}>
+                <Grid item sm={12} sx={{ m: 1.25 }}>
                     <ProfileTextWrapper>
                         <Box
                             sx={{

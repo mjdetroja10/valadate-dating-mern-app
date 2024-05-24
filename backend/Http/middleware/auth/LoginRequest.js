@@ -14,10 +14,10 @@ const LoginRequest = async (req, res, next) => {
         .notEmpty()
         .bail()
         .isEmail()
-        .withMessage("musy be email type")
+        .withMessage("must be email type")
         .bail()
         .custom(() => {
-          if (!req.loginUser) return Promise.reject("user does mot exist");
+          if (!req.loginUser) return Promise.reject("user does not exist");
           if (!req.loginUser.isEmailVerified)
             return Promise.reject("Your email is not verified. please verified your email first");
           return true;

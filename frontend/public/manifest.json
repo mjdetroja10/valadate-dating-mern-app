@@ -1,0 +1,19 @@
+{
+    "id": "3",
+    "name": "Valadate App - Find someone better",
+    "short_name": "Valadate App",
+    "theme_color": "#F9DB6D",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "orientation": "any",
+    "scope": "/",
+    "start_url": "/",
+    "icons": [
+        {
+            "src": "/assets/images/app-logo-192.png",
+            "type": "image/png",
+            "sizes": "192x192",
+            "purpose": "maskable"
+        }
+    ]
+}

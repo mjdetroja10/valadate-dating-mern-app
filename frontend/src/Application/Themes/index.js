@@ -2,24 +2,24 @@ import { createTheme } from '@mui/material/styles'
 
 const theme = createTheme({
     palette: {
-        primary: {
-            main: '#F9DB6D',
-            dark: '#FDEAb6',
-        },
-        black: {
-            main: '#0C0E10',
-            medium: '#2E353E',
-            light: '#72859A',
-        },
-        blue: {
-            b100: '#B5D4F6',
-            b300: '#98C4F2',
-            b500: '#5AA1EC',
-            b700: '#145CA8',
-        },
-        white: {
-            main: '#FBFDFF',
-        },
+     primary: {
+      main: "#F9DB6D",
+      dark: "#FDEAb6",
+    },
+    black: {
+      main: "#252B42",
+      medium: "#2E353E",
+      light: "#72859A",
+    },
+    blue: {
+      b100: "#B5D4F6",
+      b300: "#98C4F2",
+      b500: "#5AA1EC",
+      b700: "#145CA8",
+    },
+    white: {
+      main: "#FBFDFF",
+    },
     },
     typography: {
         fontFamily: 'Raleway',

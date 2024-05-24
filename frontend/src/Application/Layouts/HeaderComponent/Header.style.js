@@ -25,7 +25,7 @@ export const NavLinkWrapper = styled(Box)(({ theme }) => ({
     },
 
     [theme.breakpoints.down('md')]: {
-        display: 'none',
+        // display: 'none',
     },
 }))
 

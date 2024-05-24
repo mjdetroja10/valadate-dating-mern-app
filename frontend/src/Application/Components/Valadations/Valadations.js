@@ -20,15 +20,13 @@ export const Valadations = () => {
 
     return (
         <AppLayout appMenu={USER_APP_MENU()} sidebarShow={true} hasLessSpace={true}>
-            <Container maxWidth={false} disableGutters>
-                <Grid container spacing={2}>
-                    <ValadationsRequests
-                        pendingRequestList={pendingRequestList}
-                        setPendingRequestList={setPendingRequestList}
-                        setReloadMyFrds={setReloadMyFrds}
-                    />
-                    <MyFriends title="My Friends" reloadMyFrds={reloadMyFrds} setReloadMyFrds={setReloadMyFrds} />
-                </Grid>
+            <Container maxWidth={false} disableGutters sx={{ p: 2.5 }}>
+                <ValadationsRequests
+                    pendingRequestList={pendingRequestList}
+                    setPendingRequestList={setPendingRequestList}
+                    setReloadMyFrds={setReloadMyFrds}
+                />
+                <MyFriends title="My Friends" reloadMyFrds={reloadMyFrds} setReloadMyFrds={setReloadMyFrds} />
             </Container>
         </AppLayout>
     )

@@ -1,8 +1,10 @@
 import {
     COMMON_THREADS_URL,
     CONNECTIONS_URL,
+    DATING_PREFERENCE_URL,
     DISCOVER_URL,
     LOGIN_URL,
+    MY_ACCOUNT_URL,
     MY_PROFILE_URL,
     VALADATIONS_URL,
 } from '@application/Constants/RoutesConstants'
@@ -55,13 +57,13 @@ export const profileSidebarList = [
             {
                 title: 'Dating Preference',
                 type: APP_MENU_TYPES.LINK,
-                path: '',
+                path: DATING_PREFERENCE_URL,
                 icon: <CommonThreadsLinkIcon width={24} height={24} />,
             },
             {
                 title: 'My Account',
                 type: APP_MENU_TYPES.LINK,
-                path: '',
+                path: MY_ACCOUNT_URL,
                 icon: <MyConnectionsLinkIcon width={34} height={20} />,
             },
         ],

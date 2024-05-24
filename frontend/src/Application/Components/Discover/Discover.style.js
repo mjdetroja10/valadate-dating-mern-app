@@ -6,8 +6,7 @@ export const DiscoverMainWrap = styled('div')({
     marginTop: 90,
 })
 
-export const UserCard = styled('div')({
-    height: 400,
+export const UserCard = styled('div')(({ theme }) => ({
     position: 'relative',
 
     '& h5': {
@@ -58,7 +57,29 @@ export const UserCard = styled('div')({
             visibility: 'visible',
         },
     },
-})
+
+    [theme.breakpoints.down('sm')]: {
+        // height: '100vh',he
+        height: 'calc(100vh - 200px)',
+        '& img': {
+            borderRadius: 0,
+        },
+    },
+
+    [theme.breakpoints.down('md')]: {
+        // height: '100vh',he
+        height: 'calc(100vh - 84px)',
+        '& img': {
+            borderRadius: 0,
+        },
+    },
+    [theme.breakpoints.up('md')]: {
+        height: 400,
+        '& img': {
+            borderRadius: '12px',
+        },
+    },
+}))
 
 export const UserCardText = styled('div')({
     background:
